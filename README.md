@@ -1,23 +1,33 @@
 # Bookstore-API
 Book Store API that provides functionality for managing books and user interactions.
 
-Build an API with Rate
-Limiting, Caching, and RBAC
-Scenario:
-You are tasked to build a Book Store API that provides functionality for managing books
-and user interactions. The API should implement the following features:
-1. Rate Limiting
-Implement rate limiting to ensure that no user can make more than 10 requests per
-minute to the API. The limit should apply per user (identified by a unique userId).
-2. Caching
-Add a caching mechanism to optimize performance.
-○ Cache the responses for GET requests (e.g., fetching books).
-○ Use an in-memory caching mechanism (e.g., Redis or any other preferred
-library).
-○ Set an expiration time of 60 seconds for cached data.
-3. Role-Based Access Control (RBAC)
-Implement RBAC to handle access control.
-○ Roles: Admin and User.
-○ Admin: Can perform all operations (create, update, delete books).
-○ User: Can only view books (GET requests).
-○ Protect endpoints using middleware or guards based on roles.
+Book Store API with Rate Limiting, Caching, and RBAC
+Project Overview
+This project implements a Book Store API featuring:
+
+Rate Limiting: Limits users to 10 requests per minute.
+Caching: In-memory caching for GET requests with a 60-second expiration.
+Role-Based Access Control (RBAC): Controls access based on user roles (Admin and User).
+API Structure
+Endpoint	Method	Access	Description
+/books	POST	Admin	Create a new book
+/books	GET	Admin, User	Fetch all books
+/books/:id	PUT	Admin	Update a book by ID
+/books/:id	DELETE	Admin	Delete a book by ID
+Technologies Used
+Backend Framework: Node.js/NestJS
+Caching: Redis (in-memory cache)
+Rate Limiting: express-rate-limit
+Authentication: Mock Authentication using custom HTTP headers
+Authentication Implementation Details
+Header-Based Authentication
+The API uses a simplified mock authentication system through custom HTTP headers:
+
+x-user-id: [unique user identifier]
+x-role: [admin|user]
+Example Request Headers
+Admin Request Headers:
+
+{
+  "x-user-id": "admin123",
+  "x-role": "admin"
